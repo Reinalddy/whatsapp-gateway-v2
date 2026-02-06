@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 type LoginResponse = {
     code: number,
     message: string,
-    data : {
+    data: {
         token: string,
         user: {
             id: number,
@@ -11,7 +11,7 @@ type LoginResponse = {
             email: string,
             phoneNumber: number
         }
-        
+
     }
 }
 
@@ -27,6 +27,17 @@ type RegisterResponse = {
             phoneNumber: number
         }
 
+    }
+}
+
+type MeResponse = {
+    code: number,
+    message: string,
+    data: {
+        id: number,
+        name: string,
+        email: string,
+        phoneNumber: number
     }
 }
 
@@ -87,7 +98,7 @@ export const useAuth = () => {
     const fetchMe = async () => {
         if (!token.value) return
         try {
-            const res = await $fetch(`${config.public.apiBaseUrl}/auth/me`, {
+            const res = await $fetch<MeResponse>(`${config.public.apiBaseUrl}/auth/me`, {
                 headers: {
                     Authorization: `Bearer ${token.value}`
                 }

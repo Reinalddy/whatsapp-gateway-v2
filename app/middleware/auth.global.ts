@@ -6,19 +6,29 @@ export default defineNuxtRouteMiddleware(async (to) => {
         logout
     } = useAuth()
 
+    // Load token from localStorage on client-side
     loadFromStorage()
 
-    // halaman publik
-    // TAPI KALAU ADA TOKEN DAN BELUM EXPIRED, MAKA REDIRECT KE DASHBOARD
-    if (['/login', '/register'].includes(to.path)) {
+    // Public pages - no auth required
+    const publicPages = ['/login', '/register', '/']
+
+    if (publicPages.includes(to.path)) {
+        // If already logged in with valid token, redirect to dashboard
         if (token.value && !isTokenExpired()) {
             return navigateTo('/client/dashboard')
         }
-
         return
     }
 
-    if (!token.value || isTokenExpired()) {
-        logout()
+    // Protected routes - check authentication
+    if (to.path.startsWith('/client') || to.path.startsWith('/admin') || to.path.startsWith('/dashboard')) {
+        // No token or expired token - redirect to login
+        if (!token.value || isTokenExpired()) {
+            // Clear any invalid token
+            if (import.meta.client) {
+                localStorage.removeItem('token')
+            }
+            return navigateTo('/login')
+        }
     }
 })
