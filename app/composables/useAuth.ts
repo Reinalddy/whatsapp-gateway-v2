@@ -65,9 +65,9 @@ export const useAuth = () => {
     }
 
     const register = async (name: string, email: string, password: string, phoneNumber: number) => {
-        const res: RegisterResponse = await $fetch(`${config.public.apiBaseUrl}/api/auth/register`, {
+        const res: RegisterResponse = await $fetch(`${config.public.apiBaseUrl}/auth/register`, {
             method: 'POST',
-            body: { name, email, password }
+            body: { name, email, password, phoneNumber }
         })
 
         token.value = res.data.token

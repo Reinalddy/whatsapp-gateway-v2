@@ -7,7 +7,7 @@ const router = useRouter()
 const name = ref('')
 const email = ref('')
 const password = ref('')
-const phoneNumber = ref<Number>(0)
+const phoneNumber = ref<Number>()
 const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
@@ -64,6 +64,19 @@ const handleRegister = async () => {
             v-model="email"
             type="email"
             placeholder="admin@mail.com"
+            class="mt-1 w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+            required
+          />
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label class="text-sm text-gray-400">Phone Number</label>
+          <input
+            v-model="phoneNumber"
+            type="number"
+            placeholder="6281234567892"
             class="mt-1 w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-lg
                    focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
             required
