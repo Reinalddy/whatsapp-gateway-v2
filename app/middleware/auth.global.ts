@@ -3,14 +3,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
         token,
         loadFromStorage,
         isTokenExpired,
-        logout
     } = useAuth()
 
     // Load token from localStorage on client-side
     loadFromStorage()
 
     // Public pages - no auth required
-    const publicPages = ['/login', '/register', '/']
+    const publicPages = ['/login', '/register']
 
     if (publicPages.includes(to.path)) {
         // If already logged in with valid token, redirect to dashboard
