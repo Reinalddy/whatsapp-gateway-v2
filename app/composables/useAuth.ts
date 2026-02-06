@@ -115,6 +115,8 @@ export const useAuth = () => {
         loadFromStorage,
         isTokenExpired,
         logout,
-        fetchMe
+        fetchMe,
+        login,
+        register
     }
 }
